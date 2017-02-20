@@ -1,0 +1,26 @@
+{
+  "name": "@athena/api-gateway-eureka-register",
+  "version": "0.0.1",
+  "description": "Eureka client as a service to register to the gateway",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "perforce",
+    "url": "p4://perforce.athenahealth.com:1666/esp/Helium-Server/Epocrates/Server/Node/"
+  },
+  "dependencies": {
+    "eureka-js-client": "^4.1.4",
+    "express": "3.2.6",
+    "jade": "*",
+    "js-yaml": "*"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "sinon": "^1.17.7",
+    "stubbit": "^0.2.0"
+  }
+}

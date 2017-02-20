@@ -1,0 +1,27 @@
+
+  instance: 
+    # app: 'NODECLIENT'
+    # prefer-ip-address: 'true'
+    # hostName: '10.6.211.188'
+    # ipAddr: '10.6.211.188'
+    # port: 
+    #  '$': 3000
+    #  '@enabled': 'true'
+    # vipAddress: 'NODECLIENT'
+    # dataCenterInfo: 
+    #  '@class': 'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo'
+    #  name: MyOwn
+    # statusPageUrl: 'http://10.6.211.188:3000/info'
+    # healthCheckUrl: 'http://10.6.211.188:3000/health'
+    # homePageUrl: 'http://10.6.211.188:3000/'
+    # preferIpAddress: 'true'
+  eureka:
+    host: 'localhost'
+    port: 8080
+
+    #host: 'satdevv739.athenahealth.com'
+    # Note that this is the port for the "shortcut" to eureka
+    #port: 38080
+    servicePath: '/eureka/eureka/apps/'
+    fetchRegistry: 'true'
+    
