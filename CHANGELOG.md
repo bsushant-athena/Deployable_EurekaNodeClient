@@ -1,11 +1,20 @@
 # @athena/api-gateway-node-client
 
+## 1.1.0
+Added Typescript index.d.ts file, allowing for this package to be used within typescript projects.
+A new method has been added to the package for retrieving the client in typescript
 
-### 1.1.0 
+```typescript
+import { getEurekaClient } from '@athena/api-gateway-node-client';
+const athenaEureka = getEurekaClient();
+```
+
+## 0.5.0
+
+The config.auth.clientId, .clientSecret, and .iamTokenPath configuration options that are settable in the configureEurekaServerCallback function would be overridden in doConnect with ENV variables (GATEWAY_CLIENT_ID, GATEWAY_CLIENT_SECRET, and GATEWAY_TOKEN_PATH). These ENV variables now only set those keys by default, and modifications to those keys after the configureEurekaServerCallback callback will not be ignored.
 
 The eureka client is now exposed on the athena eureka object. This client is not present until after the register event has been emitted by athena-eureka.
 
-* Javascript *
 ```javascript
 const athenaEureka = require('@athena/api-gateway-node-client');
 
@@ -28,25 +37,4 @@ process.on('SIGINT', () => {
   athenaEureka.client.stop();
   ...
 });
-```
-
-*Typescript*
-```typescript
-import { getEurekaClient } from '@athena/api-gateway-node-client';
-const athenaEureka = getEurekaClient();
-...
-```
-
-### 1.1.3
-```
-Add restriction for service name to not have special character and upgrade to latest eureka-js-client version.
-```
-
-##AMS changes
-```
-access-definition file is the equivalent of IAM service file
-fabric.json is required to push the access-definitions into AMS
-Command used = fabric app access push --path access-definition.json
-More details in https://athenajira.athenahealth.com/browse/P2AG-3051
-
 ```

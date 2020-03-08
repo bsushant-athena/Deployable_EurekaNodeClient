@@ -1,0 +1,88 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@3.10.8
+3 info using node@v6.9.1
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   escapedName: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/bsushant/node-client',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/bsushant/.npm/@athena/api-gateway-node-client/0.0.9/package.tgz not in flight; packing
+9 verbose correctMkdir /Users/bsushant/.npm correctMkdir not in flight; initializing
+10 info lifecycle @athena/api-gateway-node-client@0.0.9~prepublish: @athena/api-gateway-node-client@0.0.9
+11 silly lifecycle @athena/api-gateway-node-client@0.0.9~prepublish: no script for prepublish, continuing
+12 verbose tar pack [ '/Users/bsushant/.npm/@athena/api-gateway-node-client/0.0.9/package.tgz',
+12 verbose tar pack   '/Users/bsushant/node-client' ]
+13 verbose tarball /Users/bsushant/.npm/@athena/api-gateway-node-client/0.0.9/package.tgz
+14 verbose folder /Users/bsushant/node-client
+15 verbose addLocalTarball adding from inside cache /Users/bsushant/.npm/@athena/api-gateway-node-client/0.0.9/package.tgz
+16 verbose correctMkdir /Users/bsushant/.npm correctMkdir not in flight; initializing
+17 silly cache afterAdd @athena/api-gateway-node-client@0.0.9
+18 verbose afterAdd /Users/bsushant/.npm/@athena/api-gateway-node-client/0.0.9/package/package.json not in flight; writing
+19 verbose correctMkdir /Users/bsushant/.npm correctMkdir not in flight; initializing
+20 verbose afterAdd /Users/bsushant/.npm/@athena/api-gateway-node-client/0.0.9/package/package.json written
+21 silly publish { name: '@athena/api-gateway-node-client',
+21 silly publish   version: '0.0.9',
+21 silly publish   description: 'Eureka client as a service to register to the gateway',
+21 silly publish   main: 'athena-eureka-client.js',
+21 silly publish   scripts: { test: 'mocha' },
+21 silly publish   publishConfig: { registry: 'http://artifactory.aws.athenahealth.com/api/npm/npm-local' },
+21 silly publish   repository:
+21 silly publish    { type: 'bitbucket',
+21 silly publish      url: 'https://bitbucket.athenahealth.com/projects/P2AG/repos/node-client/' },
+21 silly publish   dependencies:
+21 silly publish    { 'eureka-js-client': '^4.1.4',
+21 silly publish      'js-yaml': '*',
+21 silly publish      lodash: '^4.13.1' },
+21 silly publish   devDependencies:
+21 silly publish    { chai: '^3.5.0',
+21 silly publish      mocha: '^3.2.0',
+21 silly publish      sinon: '^1.17.7',
+21 silly publish      stubbit: '^0.2.0' },
+21 silly publish   readme: 'Athena EurekaClient\n---------------------------------------------------------------------------------------------------------------------------------------------\nThe relevant files are:\n//esp/mgagliardi_P2/PlatformV2/service/foundation/gateway/nodeclient/athena-eureka-client.js\n    A small client implementation that uses eureka-js-client.\n\n\n---------------------------------------------------------------------------------------------------------------------------------------------\n\n1) Client File: athena-eureka-client.js\n\nFunctions:\na)var ipAddress = function(value);\n    This is a function that has nothing to do with eureka. It just returns an array of valid IP for the server where the code is running.\n\nb)var defaultConfig = function()\n    This function simply returns the default config structure, which is a subset of the configuration used by eureka-js-client.\n\nc)var configIp = function(address, port, appName, callbackFunction)\n    This function return the default configuration modified by a callback function (if not null). The address parameter is an IP address that is always used to configure the client IP.\n\nd)var getYaml = function(file)\n    Gets a yaml file into a structure\n\ne)exports.connect = function(appPort, appName,fileLocation, configureCallback)\n    The actual function provided by the module to connect to a eureka server:\n        1) get all the ip addresses of the client\n        2) get additional client-specific configuration from the file specified by fileLocation(client.yml file)\n            if the configureCallback function is null, create a callback function that uses the client specific configuration about the host, port and servicepath of the eureka server\n            if the configureCallback function is not null then it used instead of the "default" function described above; the user-provided configureCallback must anyway set the same parameters as the default one\n        3) Finally, for each of the addresses gathered at (1), merge the address, the default config and the provided callback (which by default uses the configuration file), and use the merged configuration to connect to the eureka server advertising the address of the service.\n\nf)var doConnect = function(config)\n    This function actually is the one that uses the eureka-js-client Eureka object to connect. The config passed by the caller is used to complete a default config for Eureka, that contains values we do not want the user of the client to be able to configure him/herself (smile)\n---------------------------------------------------------------------------------------------------------------------------------------------\n\n2) Usage\n\na) Add @athena/api-gateway-node-client to your dependencies in package.json\nb) Import/require @athena/api-gateway-node-client\n eg. var athenaEureka = require(\'@athena/api-gateway-node-client\');\nc) Call the function connect by passing approriate values\n eg. athenaEureka.connect(app.get(\'port\'),"NODECLIENT",`${__dirname}/config/eureka-client.yml`,logger);\n  - here logger is optional , you can pass your own logger object but make sure to access only 4 methods i.e.(warn,debug,error and info)\nRefer @athena/api-gateway-sample-nodeapp node module for more details.\n\n---------------------------------------------------------------------------------------------------------------------------------------------\n\nPushing Node Client Image:\n1)docker tag node-eurekaclient docker.artifactory.aws.athenahealth.com/node-eurekaclient:version-0.1\n2)docker push docker.artifactory.aws.athenahealth.com/node-eurekaclient:version-0.1\n\nPublish new version of api-gateway-node-client:\n\nTo get your authorization information, execute the following command for the artifactory in aws:\n\ncurl -u <username in aws artifactory> http://artifactory.aws.athenahealth.com/api/npm/npm-local/auth/athena\n\nyou should be promted for a password and get the following output:\n\nEnter host password for user \'<username in aws artifactory>\':\n@athena:registry=http://artifactory.aws.athenahealth.com:80/api/npm/npm-local/\n//artifactory.aws.athenahealth.com:80/api/npm/npm-local/:_password=<a string that containes the password you\'ll need to use>\n//artifactory.aws.athenahealth.com:80/api/npm/npm-local/:username=admin\n//artifactory.aws.athenahealth.com:80/api/npm/npm-local/:email=darcari@athenahealth.com\n//artifactory.aws.athenahealth.com:80/api/npm/npm-local/:always-auth=true\n\nor for artifactory on prem:\n\ncurl -u <username in aws artifactory> http://artbtav700.athenahealth.com:8081/artifactory/api/npm/local-npm/auth/athena\n\nThen you have two options:\n\n1) manually:\n    1a) make sure that your .npmrc file containes the output of the curl program\n    1b) [if you are publishing to aws] cp package.json package.json.bak && cp package.aws.json package.json\n    1b) just run npm publish\n2) using docker\n    2a) build an image for the publishing using Dockerfile_Publish.db file (for on prem) or Dockerfile_Publish_AWS.db :\n        docker build  -t npm-publish:[aws|artb] -f Dockerfile_Publish[_AWS].db .\n    2b) extract the string (only the value!) from the line\n        <artifactory repo>:_password=<a string that containes the password you\'ll need to use>\n    2c) run it with the environment variable ARTIFACTORY_PASSWORD set to the string you got for password with the curl command:\n        docker run --rm -it --name node_publish -e ARTIFACTORY_PASSWORD=<a string that containes the password you\'ll need to use> npm-publish:[aws|artb]\n\nThe docker complication is to avoid storing password in the image...\n\n\n\n\n\n---------------------------------------------------------------------------------------------------------------------------------------------\nMore info at : https://athenaconfluence.athenahealth.com/display/PLAT/Consideration+on+Eureka-js\n',
+21 silly publish   readmeFilename: 'README.md',
+21 silly publish   gitHead: 'c15da3ea3cbcc5257e0cbc8f63197158a7e4c123',
+21 silly publish   _id: '@athena/api-gateway-node-client@0.0.9',
+21 silly publish   _shasum: '1112615f2cf9671e723a3bb5e1d71de368657fd0',
+21 silly publish   _from: '.' }
+22 verbose getPublishConfig { registry: 'http://artifactory.aws.athenahealth.com/api/npm/npm-local' }
+23 silly mapToRegistry name @athena/api-gateway-node-client
+24 silly mapToRegistry scope (from package name) @athena
+25 silly mapToRegistry registry http://artbtav700.athenahealth.com:8081/artifactory/api/npm/local-npm/
+26 silly mapToRegistry data Result {
+26 silly mapToRegistry   raw: '@athena/api-gateway-node-client',
+26 silly mapToRegistry   scope: '@athena',
+26 silly mapToRegistry   escapedName: '@athena%2fapi-gateway-node-client',
+26 silly mapToRegistry   name: '@athena/api-gateway-node-client',
+26 silly mapToRegistry   rawSpec: '',
+26 silly mapToRegistry   spec: 'latest',
+26 silly mapToRegistry   type: 'tag' }
+27 silly mapToRegistry uri http://artbtav700.athenahealth.com:8081/artifactory/api/npm/local-npm/@athena%2fapi-gateway-node-client
+28 verbose publish registryBase http://artbtav700.athenahealth.com:8081/artifactory/api/npm/local-npm/
+29 silly publish uploading /Users/bsushant/.npm/@athena/api-gateway-node-client/0.0.9/package.tgz
+30 verbose stack Error: auth required for publishing
+30 verbose stack     at CachingRegistryClient.publish (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/publish.js:30:14)
+30 verbose stack     at /usr/local/lib/node_modules/npm/lib/publish.js:138:14
+30 verbose stack     at mapToRegistry (/usr/local/lib/node_modules/npm/lib/utils/map-to-registry.js:62:3)
+30 verbose stack     at publish_ (/usr/local/lib/node_modules/npm/lib/publish.js:107:3)
+30 verbose stack     at Array.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/slide/lib/bind-actor.js:15:8)
+30 verbose stack     at LOOP (/usr/local/lib/node_modules/npm/node_modules/slide/lib/chain.js:15:14)
+30 verbose stack     at LOOP (/usr/local/lib/node_modules/npm/node_modules/slide/lib/chain.js:14:28)
+30 verbose stack     at chain (/usr/local/lib/node_modules/npm/node_modules/slide/lib/chain.js:20:5)
+30 verbose stack     at /usr/local/lib/node_modules/npm/lib/publish.js:73:5
+30 verbose stack     at RES (/usr/local/lib/node_modules/npm/node_modules/inflight/inflight.js:23:14)
+31 verbose cwd /Users/bsushant/node-client
+32 error Darwin 16.6.0
+33 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "publish"
+34 error node v6.9.1
+35 error npm  v3.10.8
+36 error code ENEEDAUTH
+37 error need auth auth required for publishing
+38 error need auth You need to authorize this machine using `npm adduser`
+39 verbose exit [ 1, true ]

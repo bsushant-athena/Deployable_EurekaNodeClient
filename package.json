@@ -1,26 +1,49 @@
 {
-  "name": "@athena/api-gateway-eureka-register",
-  "version": "0.0.1",
+  "name": "@athena/api-gateway-node-client",
+  "version": "1.2.1",
   "description": "Eureka client as a service to register to the gateway",
-  "main": "app.js",
+  "main": "athena-eureka-client.js",
+  "types": "index.d.ts",
   "scripts": {
-    "start": "node app.js",
+    "lint": "npm-kit lint",
+    "lint-fix": "npm-kit lint --fix",
+    "coverage": "nyc --reporter=json --reporter=text --require @athena/app-fabric-coverage-mocha mocha",
+    "validate": "npm-kit validate --check-dependencies",
+    "prepublish": "npm-kit validate --quiet",
+    "prepare-publish": "npm-kit publish --prepare",
+    "auto-publish": "npm-kit publish --auto",
     "test": "mocha"
   },
+  "publishConfig": {
+    "registry": "http://artifactory.aws.athenahealth.com/api/npm/npm-local"
+  },
   "repository": {
-    "type": "perforce",
-    "url": "p4://perforce.athenahealth.com:1666/esp/Helium-Server/Epocrates/Server/Node/"
+    "type": "bitbucket",
+    "url": "https://bitbucket.athenahealth.com/projects/P2AG/repos/node-client/"
   },
   "dependencies": {
-    "eureka-js-client": "^4.1.4",
-    "express": "3.2.6",
-    "jade": "*",
-    "js-yaml": "*"
+    "@athena/iam-service-token-manager": "^1.2.1",
+    "@athena/uiam-token-requester": "^0.1.2",
+    "@types/eureka-js-client": "^4.4.1",
+    "eureka-js-client": "^4.5.0",
+    "js-yaml": "*",
+    "json-query": "^2.2.2",
+    "lodash.merge": "^4.6.1",
+    "request": "^2.83.0",
+    "valid-url": "1.0.9"
   },
   "devDependencies": {
+    "@athena/app-fabric-coverage-mocha": "^1.0.0",
+    "@athena/app-fabric-npm-kit": "^1.7.0",
+    "@athena/fabric": "*",
+    "@athena/eslint-config-app-fabric": "^1.5.0",
+    "eslint-plugin-import": "^2.8.0",
+    "nyc": "^11.3.0",
+    "istanbul": "^0.4.5",
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
-    "sinon": "^1.17.7",
+    "sinon": "^6.3.0",
     "stubbit": "^0.2.0"
-  }
+  },
+  "license": "UNLICENSED"
 }
